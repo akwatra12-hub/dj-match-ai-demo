@@ -467,6 +467,9 @@ body {
     transition: all 0.3s ease;
     flex-shrink: 0;
     font-weight: bold;
+    line-height: 1;
+    padding: 0;
+    text-indent: 2px;
 }
 
 .play-btn:hover {
@@ -476,10 +479,6 @@ body {
 
 .play-btn.playing {
     background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
-}
-
-.play-btn i {
-    display: block;
 }
 
 .player-controls {
