@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DJ-Match-AI - Find Your Perfect Music Match</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-icon">🎵</span>
+                <span class="logo-text">DJ-Match-AI</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#upload">Upload</a></li>
+                <li><a href="#library">Library</a></li>
+                <li><a href="#matching">Matching</a></li>
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <button class="btn-login">Login</button>
+                <button class="btn-signup">Sign Up</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Find Your Perfect Music Match</h1>
+            <p>AI-powered DJ matching system that connects you with songs that perfectly fit your vibe</p>
+            <button class="btn-primary btn-lg">Get Started</button>
+        </div>
+        <div class="hero-visual">
+            <div class="music-visualization">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upload Section -->
+    <section id="upload" class="upload-section">
+        <div class="container">
+            <h2>Upload Your Music</h2>
+            <div class="upload-content">
+                <div class="upload-area">
+                    <div class="upload-icon">📁</div>
+                    <h3>Drag & Drop Your Audio Files</h3>
+                    <p>or click to browse</p>
+                    <input type="file" id="fileInput" accept="audio/*" multiple hidden>
+                    <button class="btn-secondary" onclick="document.getElementById('fileInput').click()">Choose Files</button>
+                    <p class="upload-info">Supported formats: MP3, WAV, FLAC, OGG</p>
+                </div>
+                <div class="upload-preview">
+                    <div id="fileList" class="file-list"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Analysis Section -->
+    <section class="analysis-section">
+        <div class="container">
+            <h2>AI-Powered Analysis</h2>
+            <div class="analysis-grid">
+                <div class="analysis-card">
+                    <div class="card-icon">🎯</div>
+                    <h3>Genre Detection</h3>
+                    <p>Automatically identifies music genres and subgenres with 95% accuracy</p>
+                </div>
+                <div class="analysis-card">
+                    <div class="card-icon">📊</div>
+                    <h3>BPM Analysis</h3>
+                    <p>Precise tempo and beat detection for perfect DJ transitions</p>
+                </div>
+                <div class="analysis-card">
+                    <div class="card-icon">🎼</div>
+                    <h3>Key Detection</h3>
+                    <p>Identifies musical key for harmonic mixing compatibility</p>
+                </div>
+                <div class="analysis-card">
+                    <div class="card-icon">🎨</div>
+                    <h3>Mood Classification</h3>
+                    <p>Determines emotional tone and energy level of tracks</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Matching Engine Section -->
+    <section id="matching" class="matching-section">
+        <div class="container">
+            <h2>Smart Matching Engine</h2>
+            <div class="matching-demo">
+                <div class="song-selection">
+                    <h3>Select a Track</h3>
+                    <div class="track-list">
+                        <div class="track-item" onclick="selectTrack(this, 'Summer Vibes')">
+                            <div class="track-thumbnail">🎵</div>
+                            <div class="track-info">
+                                <h4>Summer Vibes</h4>
+                                <p>Electronic • 128 BPM • D Major</p>
+                            </div>
+                        </div>
+                        <div class="track-item" onclick="selectTrack(this, 'Night Groove')">
+                            <div class="track-thumbnail">🎵</div>
+                            <div class="track-info">
+                                <h4>Night Groove</h4>
+                                <p>House • 120 BPM • A Minor</p>
+                            </div>
+                        </div>
+                        <div class="track-item" onclick="selectTrack(this, 'Electric Dreams')">
+                            <div class="track-thumbnail">🎵</div>
+                            <div class="track-info">
+                                <h4>Electric Dreams</h4>
+                                <p>Techno • 130 BPM • E Major</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="matches-display">
+                    <h3>Perfect Matches</h3>
+                    <div id="matchResults" class="match-results">
+                        <p class="placeholder">Select a track to see matches</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Library Section -->
+    <section id="library" class="library-section">
+        <div class="container">
+            <h2>Your Music Library</h2>
+            <div class="library-controls">
+                <input type="text" class="search-box" placeholder="Search your library...">
+                <select class="filter-dropdown">
+                    <option>All Genres</option>
+                    <option>Electronic</option>
+                    <option>House</option>
+                    <option>Techno</option>
+                    <option>Drum & Bass</option>
+                </select>
+            </div>
+            <div class="library-grid" id="libraryGrid">
+                <!-- Library items populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="dashboard-section">
+        <div class="container">
+            <h2>Analytics Dashboard</h2>
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <h3>Total Tracks</h3>
+                    <div class="stat-number">248</div>
+                    <p class="stat-label">in your library</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Playlists Created</h3>
+                    <div class="stat-number">12</div>
+                    <p class="stat-label">using AI matching</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Average BPM</h3>
+                    <div class="stat-number">125</div>
+                    <p class="stat-label">most common tempo</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Favorite Genre</h3>
+                    <div class="stat-number">House</div>
+                    <p class="stat-label">45% of your library</p>
+                </div>
+            </div>
+            <div class="charts-section">
+                <div class="chart-container">
+                    <h3>Genre Distribution</h3>
+                    <div class="pie-chart"></div>
+                    <div class="pie-legend">
+                        <span class="legend-item"><span class="legend-color house"></span>House 45%</span>
+                        <span class="legend-item"><span class="legend-color techno"></span>Techno 25%</span>
+                        <span class="legend-item"><span class="legend-color drum"></span>Drum & Bass 20%</span>
+                        <span class="legend-item"><span class="legend-color other"></span>Other 10%</span>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <h3>BPM Distribution</h3>
+                    <div class="bar-chart">
+                        <div class="bar-item">
+                            <div class="bar" style="height: 70%;"></div>
+                            <p>100-110</p>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar" style="height: 90%;"></div>
+                            <p>120-130</p>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar" style="height: 60%;"></div>
+                            <p>130-140</p>
+                        </div>
+                        <div class="bar-item">
+                            <div class="bar" style="height: 40%;"></div>
+                            <p>140+</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing-section">
+        <div class="container">
+            <h2>Simple Pricing</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Starter</h3>
+                    <div class="price">Free</div>
+                    <ul class="features">
+                        <li>✓ Up to 50 tracks</li>
+                        <li>✓ Basic AI matching</li>
+                        <li>✓ 5 playlists</li>
+                        <li>✗ Analytics</li>
+                    </ul>
+                    <button class="btn-secondary">Get Started</button>
+                </div>
+                <div class="pricing-card featured">
+                    <span class="badge">POPULAR</span>
+                    <h3>Pro</h3>
+                    <div class="price">$9.99/mo</div>
+                    <ul class="features">
+                        <li>✓ Unlimited tracks</li>
+                        <li>✓ Advanced AI matching</li>
+                        <li>✓ Unlimited playlists</li>
+                        <li>✓ Full analytics</li>
+                    </ul>
+                    <button class="btn-primary">Subscribe Now</button>
+                </div>
+                <div class="pricing-card">
+                    <h3>Enterprise</h3>
+                    <div class="price">Custom</div>
+                    <ul class="features">
+                        <li>✓ Everything in Pro</li>
+                        <li>✓ API access</li>
+                        <li>✓ Priority support</li>
+                        <li>✓ Custom integrations</li>
+                    </ul>
+                    <button class="btn-secondary">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>DJ-Match-AI</h4>
+                    <p>AI-powered music matching for DJs</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Social</h4>
+                    <ul>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Discord</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 DJ-Match-AI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
