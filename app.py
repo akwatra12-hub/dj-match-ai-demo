@@ -98,6 +98,6 @@ async def remove_track(track_id: str):
 # --- Simple frontend ---
 @app.get("/", response_class=HTMLResponse)
 async def index():
-    return (Path(__file__).parent / "static" / "index.html").read_text()
+    return (Path(__file__).parent / "index.html").read_text()
 
-app.mount("/static", StaticFiles(directory=str(Path(__file__).parent / "static")), name="static")
+app.mount("/static", StaticFiles(directory=str(Path(__file__).parent)), name="static")
