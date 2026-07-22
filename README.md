@@ -1,179 +1,63 @@
-# 🎵 DJ-Match-AI Demo Website
+# DJ Track Matcher — MVP
 
-A fully interactive demo website showcasing the DJ-Match-AI platform - an AI-powered music matching system for DJs.
+A working prototype: upload tracks, get BPM/key analysis, and see ranked
+harmonic/tempo-compatible matches from your library. No dependency on
+Spotify or any third-party metadata API — analysis runs entirely on your
+own audio files via Essentia.
 
-## 🌐 Live Demo
+## Setup
 
-**Visit:** [https://akwatra12-hub.github.io/dj-match-ai-demo/](https://akwatra12-hub.github.io/dj-match-ai-demo/)
-
-## ✨ Features
-
-### 🎵 Core Sections
-- **Hero Section** - Eye-catching landing with animated visualizations
-- **Upload Interface** - Drag-and-drop audio file uploads
-- **AI Analysis** - Genre, BPM, Key, and Mood detection
-- **Smart Matching** - Interactive track matching engine
-- **Music Library** - Searchable library with filters
-- **Analytics Dashboard** - Statistics and music distribution charts
-- **Pricing Plans** - Three-tier subscription options
-
-### 🎨 Design Features
-- Modern dark theme with gradient accents
-- Fully responsive (mobile, tablet, desktop)
-- Smooth animations and transitions
-- Interactive hover effects
-- Animated music visualization
-
-### 🔧 Interactive Elements
-- **File Upload** - Real-time file display
-- **Track Selection** - View AI-matched recommendations
-- **Search & Filter** - Find tracks by name or genre
-- **Smooth Navigation** - Instant scroll to sections
-- **Demo Data** - Pre-populated with sample music
-
-## 📁 File Structure
-
-```
-├── index.html       # Main HTML structure
-├── styles.css       # Complete styling and animations  
-├── script.js        # Interactive functionality
-└── README.md        # This file
-```
-
-## 🎮 How to Use
-
-### Online
-1. Visit: https://akwatra12-hub.github.io/dj-match-ai-demo/
-2. Explore all sections
-3. Try the interactive features
-
-### Locally
 ```bash
-# Clone the repository
-git clone https://github.com/akwatra12-hub/dj-match-ai-demo.git
-cd dj-match-ai-demo
-
-# Start local server
-python -m http.server 8000
-
-# Open browser: http://localhost:8000
+pip install fastapi uvicorn python-multipart essentia
 ```
 
-## 🎮 Interactive Demo
+## Run
 
-### Smart Matching Engine
-1. Scroll to "Smart Matching Engine" section
-2. Click on any track ("Summer Vibes", "Night Groove", "Electric Dreams")
-3. See AI-matched recommendations instantly
-4. View match scores and music properties
-
-### Library Management
-- **Search** - Type in search box to filter tracks
-- **Filter** - Use dropdown to filter by genre
-- **Real-time** - Results update as you type
-
-### Analytics Dashboard
-- View total tracks and playlists
-- See genre distribution pie chart
-- Check BPM distribution
-- Review music statistics
-
-## 🎨 Customization
-
-### Update Colors
-Edit CSS variables in `styles.css`:
-```css
-:root {
-    --primary-color: #6366f1;
-    --secondary-color: #8b5cf6;
-    --accent-color: #ec4899;
-}
+```bash
+cd dj_track_matcher
+uvicorn app:app --reload
 ```
 
-### Modify Track Data
-Edit `mockTracks` in `script.js`:
-```javascript
-const mockTracks = {
-    'Your Track': {
-        title: 'Your Track',
-        artist: 'Artist',
-        genre: 'Genre',
-        // ... more properties
-    }
-};
-```
+Open **http://127.0.0.1:8000** in a browser.
 
-### Add Library Items
-Update `libraryTracks` array in `script.js`
+## How it works
 
-## 🌐 Browser Support
+- `audio_analysis.py` — extracts BPM, key, Camelot code, loudness,
+  danceability, and dynamic complexity from an audio file using Essentia.
+- `matching_engine.py` — rule-based scoring: Camelot wheel harmony (45pts),
+  tempo compatibility incl. half/double-time (35pts), energy closeness (20pts).
+- `database.py` — SQLite storage for the track library (swap for Postgres
+  later without changing the calling code).
+- `app.py` — FastAPI backend wiring it together, with `/upload`, `/library`,
+  and `/matches/{track_id}` endpoints.
+- `static/index.html` — a single-page UI: upload a track, browse your
+  library, click "Find matches" to see ranked compatible tracks with
+  the reasons for each match.
 
-- ✅ Chrome/Edge 88+
-- ✅ Firefox 87+
-- ✅ Safari 14+
-- ✅ Mobile browsers
+## Tested
 
-## 📦 What's Included
+This has been run end-to-end (upload -> analyze -> store -> match) against
+real audio files with known BPM/key, confirming correct detection and
+correct compatibility ranking (matches with correct key+tempo score highest,
+wrong-tempo tracks are correctly penalized).
 
-- **3 Sample Tracks** with matching recommendations
-- **8 Library Items** for browsing
-- **Statistics & Charts** showing music analytics
-- **Mock File Upload** simulation
-- **Responsive Design** for all devices
-- **Smooth Animations** throughout
+## Known limitations to fix before real use
 
-## 🚀 Next Steps
+- No auth — anyone with network access can upload/view the library.
+- Essentia's beat-tracking can misfire on unusual signals (e.g. very
+  synthetic or heavily filtered audio) — worth validating against a set
+  of real commercial tracks with known BPM before trusting it in production.
+- No de-duplication — re-uploading the same file creates a new entry.
+- Camelot mapping assumes Essentia's key output uses standard note names
+  (sharps); double-check enharmonic edge cases (e.g. Db vs C#) against a
+  larger test set.
 
-To build the full application:
+## Suggested next steps
 
-1. **Backend Development**
-   - Create API endpoints
-   - Implement audio processing
-   - Build matching algorithm
-
-2. **Frontend Enhancement**
-   - Connect to real APIs
-   - Add audio player
-   - Implement authentication
-
-3. **AI/ML Implementation**
-   - Develop audio analysis models
-   - Optimize recommendations
-   - Fine-tune matching
-
-## 💡 Notes
-
-- No external dependencies required
-- Pure HTML, CSS, and JavaScript
-- GPU-accelerated animations
-- Optimized for performance
-- Mobile-responsive design
-
-## 📝 Technologies Used
-
-- **HTML5** - Semantic structure
-- **CSS3** - Modern styling with gradients & animations
-- **JavaScript (Vanilla)** - Interactive features
-- **CSS Grid & Flexbox** - Responsive layouts
-- **GitHub Pages** - Free hosting
-
-## 🎯 Project Specification
-
-For detailed specifications, refer to:
-- `01_Project_Overview.md` - Project scope
-- `07_UI_UX_Specification.md` - Design specifications
-- `04_System_Architecture.md` - Technical architecture
-- `06_API_Specification.md` - API documentation
-
-## 📞 Support
-
-For questions or issues:
-1. Check the project documentation
-2. Review the code comments
-3. Customize the demo as needed
-
----
-
-**Built with ❤️ for music lovers and DJs**
-
-*Part of DJ-Match-AI Project*
+1. Test against ~20-30 real tracks with known BPM/key (from Mixed In Key
+   or similar) to validate Essentia's accuracy against your genre of choice.
+2. Add basic auth + per-user libraries.
+3. Add a CLAP or MERT audio-embedding similarity term to the matching
+   engine for "vibe" matching beyond pure theory compatibility.
+4. Move from SQLite to Postgres + a proper file storage bucket (S3, etc.)
+   once you're past prototyping.
